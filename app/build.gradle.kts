@@ -22,6 +22,8 @@ dependencies {
     implementation("com.alibaba.nacos:nacos-client:2.5.1")
     implementation("org.apache.logging.log4j:log4j-slf4j2-impl:2.23.1")
     implementation("org.apache.logging.log4j:log4j-core:2.23.1")
+    implementation("commons-cli:commons-cli:1.10.0")
+    runtimeOnly("mysql:mysql-connector-java:8.0.28")
 }
 
 testing {
@@ -46,3 +48,9 @@ application {
     mainClass = "com.alibaba.nacos.example.NamingExample"
 }
 
+tasks.register<JavaExec>("runConsumer") {
+    group = "application"
+    description = "Runs the ServiceConsumerExample"
+    classpath = sourceSets.main.get().runtimeClasspath
+    mainClass.set("com.alibaba.nacos.example.ServiceConsumerExample")
+}
